@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: account-ms
+#  cloud:
+#    config:
+#      uri: http://${SPRING_CONFIG_URI:localhost:8888}
+
+server:
+  port: ${ACCOUT_PORT:8080}
+  servlet:
+    context-path: "/api"
+
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://${SPRING_EUREKA_SERVER:localhost:8761}/eureka/
+
+
+#logging:
+#  file: /Users/wallace/Apps/spring-cloud-netflix-demo/log/api-demo.log
+
+
+
