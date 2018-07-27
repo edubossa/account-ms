@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/accounts")
 public class AccountController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AccountController.class);
+    private static final Logger log = LoggerFactory.getLogger(AccountController.class);
 
     @Autowired
     private AccountRepository repository;
@@ -23,19 +23,19 @@ public class AccountController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Account>> getAccounts() {
         List<Account> customers = repository.getAccounts();
-        LOGGER.info("accounts --> " + customers.toString());
+        log.info("accounts --> " + customers.toString());
         return ResponseEntity.ok(repository.getAccounts());
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{token}")
     public ResponseEntity<Account> getCustomer(@PathVariable("token") String token) {
-        LOGGER.info("/accounts/" + token);
+        log.info("/accounts/" + token);
         return ResponseEntity.ok(repository.findByToken(token));
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Account> postCustomers(@RequestBody Account account) {
-        LOGGER.info("accounts --> " + account.toString());
+        log.info("accounts --> " + account.toString());
         repository.save(account);
         return new ResponseEntity<Account>(account, HttpStatus.CREATED);
     }
