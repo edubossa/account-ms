@@ -32,7 +32,6 @@ public class AccountRepository {
 
     @CachePut(value = "accounts")
     public Account save(Account account) {
-        account.setToken(UUID.randomUUID().toString());
         this.accountsMap.put(account.getToken(), account);
         return account;
     }

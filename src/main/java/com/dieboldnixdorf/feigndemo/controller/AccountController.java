@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/accounts")
@@ -20,24 +21,30 @@ public class AccountController {
     @Autowired
     private AccountRepository repository;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<List<Account>> getAccounts() {
         List<Account> customers = repository.getAccounts();
         log.info("accounts --> " + customers.toString());
         return ResponseEntity.ok(repository.getAccounts());
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/{token}")
+    @GetMapping("/{token}")
     public ResponseEntity<Account> getCustomer(@PathVariable("token") String token) {
         log.info("/accounts/" + token);
         return ResponseEntity.ok(repository.findByToken(token));
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<Account> postCustomers(@RequestBody Account account) {
+        account.setToken(UUID.randomUUID().toString());
         log.info("accounts --> " + account.toString());
         repository.save(account);
         return new ResponseEntity<Account>(account, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        return "OK!";
     }
 
 }
